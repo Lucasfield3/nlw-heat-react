@@ -14,7 +14,7 @@ type Message = {
     }
 };
 
-const socket = io('http://localhost:4000')
+const socket = io('https://nlw-heat-back-end.herokuapp.com/')
 
 const messageQueue:Message[] = []
 
@@ -42,9 +42,9 @@ export const MessageList = () => {
 
     useEffect(()=>{
 
-        api.get<Message[]>("/messages/last-3").then((res)=>{
+        api.get<Message[]>("messages/last-3").then((res)=>{
             setMessage(res.data);
-        })
+        }).catch((err)=>console.log(err))
 
     }, [])
 

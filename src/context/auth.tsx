@@ -34,7 +34,7 @@ export const AuthProvider = (props:AuthProviderProps) => {
 
     const [ user, setUser ] = useState<User | null>(null)
 
-    const signInUrl = `https://github.com/login/oauth/authorize?scope=user&client_id=ab14fb74db760e9dd8ba`
+    const signInUrl = `https://github.com/login/oauth/authorize?scope=user&client_id=d7fd99f0b000f900da4b`
 
     const signIn = async (githubCode: string) => {
 
@@ -43,12 +43,13 @@ export const AuthProvider = (props:AuthProviderProps) => {
         })
 
         const { token, user } = response.data
+        if(githubCode){
+            localStorage.setItem('@dowhile:token', token)
+            api.defaults.headers.common.authorization = `Bearer ${token}`
+            setUser(user)
+        }
 
-        localStorage.setItem('@dowhile:token', token)
 
-        api.defaults.headers.common.authorization = `Bearer ${token}`
-
-        setUser(user)
 
     }
 
